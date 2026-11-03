@@ -35,3 +35,9 @@ Mode d'emploi (à garder en tête du fichier) :
 - **Prochaine étape :**
 
 -->
+
+## Lab 0 — Setup (3 nov. 2026)
+- Cluster kind 3 nœuds, SeaweedFS, MLflow et port-forwards en place ; smoke tests MLflow et DVC OK.
+- Correctif : `enableServiceLinks: false` dans infra/storage/storage.yaml (SeaweedFS plantait à cause de la variable S3_PORT injectée par le Service `s3`).
+- Correctif : `pkill -f "^kubectl.*port-forward..."` dans le Makefile (`make pf` se tuait lui-même).
+- Après redémarrage du PC : CoreDNS en 0/1, réparé par rollout restart de coredns, kube-proxy puis mlflow.
