@@ -46,3 +46,9 @@ Mode d'emploi (à garder en tête du fichier) :
 - Dataset versionné (DVC, md5 24b8e38b…), 24 runs MLflow, champion scoring-model v3 (roc_auc 0.8094, coût 108), pipeline DVC 4 stages, Feast.
 - Problème : horloge décalée (dual boot) → certificats kind « pas encore valides » ; correctif timedatectl set-local-rtc 1.
 - Problème : téléchargement des modèles bloqué (URL pré-signées vers s3.storage:8333) ; correctif /etc/hosts.
+
+## Lab 2 — Pipelines Kubeflow + Airflow (17 nov. 2026)
+- KFP 2.17.2 installé (14 pods), image scoring-pipeline:1.0.0, 6 composants, pipeline compilé et exécuté (3 runs SUCCEEDED, cache vérifié), champion v7 (launched_by=kfp).
+- DAG Airflow scoring_dag (KubernetesPodOperator, même image) : run réussi en 53 s, champion v8 (launched_by=airflow) ; rapport comparatif reports/rapport-m2.md.
+- PC 8 Go : swap 12 Go, KFP mis en pause (scale --replicas=0) pendant Airflow ; make check-m2 avec Airflow arrêté.
+- Piège : un nouveau DAG n'est lu qu'après ~5 min → airflow dags reserialize.
