@@ -41,3 +41,8 @@ Mode d'emploi (à garder en tête du fichier) :
 - Correctif : `enableServiceLinks: false` dans infra/storage/storage.yaml (SeaweedFS plantait à cause de la variable S3_PORT injectée par le Service `s3`).
 - Correctif : `pkill -f "^kubectl.*port-forward..."` dans le Makefile (`make pf` se tuait lui-même).
 - Après redémarrage du PC : CoreDNS en 0/1, réparé par rollout restart de coredns, kube-proxy puis mlflow.
+
+## Lab 1 — Versioning (16-17 nov. 2026)
+- Dataset versionné (DVC, md5 24b8e38b…), 24 runs MLflow, champion scoring-model v3 (roc_auc 0.8094, coût 108), pipeline DVC 4 stages, Feast.
+- Problème : horloge décalée (dual boot) → certificats kind « pas encore valides » ; correctif timedatectl set-local-rtc 1.
+- Problème : téléchargement des modèles bloqué (URL pré-signées vers s3.storage:8333) ; correctif /etc/hosts.
